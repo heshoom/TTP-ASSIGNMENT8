@@ -5,9 +5,9 @@ import Search from "./components/Search";
 import Results from "./components/GifResults";
 
 function App() {
-  const [trending, setTrending] = useState([]);
+  const [Trending, setTrending] = useState([]);
   const [Search, setSearch] = useState([]);
-  const [random, setRandom] = useState({});
+
 
   useEffect(() => {
     async function fetchTrendingGifs() {
@@ -17,7 +17,6 @@ function App() {
         );
         setTrending(list.data.data);
         setSearch([]);
-        setRandom({});
         console.log(list);
       } catch (error) {
         console.error(error);
@@ -30,15 +29,14 @@ function App() {
   async function fetchSearchGifs(search) {
     try {
       const gifData = await axios.get(
-        "http://api.giphy.com/v1/gifs/search?q=" +
-          search +
+        "http://api.giphy.com/v1/gifs/search?q="
+        + search +
           "&api_key=aoOHTOv4THJJ4XDSBcfFle0JWoJCu5Dc"
       );
       const arr = gifData.data.data;
       console.log("fetching...", arr);
       setSearch(arr);
       setTrending([]);
-      setRandom({});
     } catch (error) {
       console.log(error);
     }
@@ -72,6 +70,7 @@ function App() {
       </form>
 
       <Results data={Search}/>
+      <Results data={Trending}/>
     </>
   );
 }
